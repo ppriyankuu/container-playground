@@ -8,3 +8,8 @@ export const containerState = atom({
         externalPort: 0,
     },
 });
+
+export const imageAtom = atom<string>({
+    key: 'image',
+    default: ''
+})

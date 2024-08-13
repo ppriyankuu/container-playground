@@ -5,6 +5,7 @@
  */
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export function LaunchCard({
   image,
@@ -21,10 +22,10 @@ export function LaunchCard({
 }) {
   return (
     <Card className="w-[350px]">
-      <img
+      <Image
         src={image}
-        width="350"
-        height="200"
+        width={350}
+        height={150}
         alt="Project"
         className="rounded-t-lg object-cover border-b"
       />

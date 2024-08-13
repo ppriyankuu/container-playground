@@ -8,13 +8,12 @@ import {
   TerminalSquareIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function Page() {
   return (
     <div className="flex flex-col min-h-[100dvh] w-full overflow-auto">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32  md:px-10 px-5">
+        <section className="w-full py-12 md:py-18 lg:py-20  md:px-10 px-5">
           <div className="md:px-6 dark:bg-black bg-white  dark:bg-grid-white/[0.1] bg-grid-black/[0.1] relative flex items-center justify-center">
             <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px] z-20">

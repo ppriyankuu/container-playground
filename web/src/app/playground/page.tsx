@@ -5,9 +5,9 @@ import { Terminal as XTerminal } from "xterm";
 import Terminal from "@/components/term";
 import { Loading } from "../loader";
 import { Button } from "@/components/ui/button";
-import { CodeIcon, GlobeIcon, PowerIcon, Settings2Icon } from "lucide-react";
+import { CodeIcon, PowerIcon, Settings2Icon } from "lucide-react";
 import { useRecoilValue } from "recoil";
-import { containerState } from "@/atom/container";
+import { containerState, imageAtom } from "@/atom/container";
 
 export default function Page() {
   const [socket, setSocket] = useState<WebSocket | null>(null);
@@ -17,6 +17,7 @@ export default function Page() {
   const [fileTree, setFileTree] = useState<any>(null);
   const container = useRecoilValue(containerState);
   const [term, setTerm] = useState<XTerminal | null>(null);
+  const image = useRecoilValue(imageAtom);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -120,22 +121,27 @@ export default function Page() {
             {container.externalPort}
           </div>
           <main className="flex-1 flex flex-wrap justify-center gap-6 p-6 my-auto h-full align-middle items-center">
-            <div className="w-1/2 flex flex-row gap-3">
-              <div
-                className="bg-zinc-800 text-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer flex flex-col items-center justify-center w-full sm:w-auto sm:flex-1 h-48"
-                onClick={() => {
-                  window.open(`http://localhost:${container.externalPort}`);
-                }}
-              >
-                <CodeIcon className="w-8 h-8 mb-2 text-white" />
-                <div>
-                  <h2 className="text-2xl font-bold text-center">VS Code</h2>
-                  <p className="text-sm text-muted-foreground text-center text-white">
-                    Access your virtual machine's VS Code
-                  </p>
+
+            { image === '' ?
+              <div className="w-1/2 flex flex-row gap-3">
+                <div
+                  className="bg-zinc-800 text-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer flex flex-col items-center justify-center w-full sm:w-auto sm:flex-1 h-48"
+                  onClick={() => {
+                    window.open(`http://localhost:${container.externalPort}`);
+                  }}
+                >
+                  <CodeIcon className="w-8 h-8 mb-2 text-white" />
+                  <div>
+                    <h2 className="text-2xl font-bold text-center">VS Code</h2>
+                    <p className="text-sm text-muted-foreground text-center text-white">
+                      Access your virtual machine's VS Code
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </div> : image === 'postgres' ? (
+                <div className="bg-black px-2 py-1 rounded-md text-white text-sm font-bold">Run: psql -U myuser</div>
+              ) : <div className="bg-black px-2 py-1 rounded-md text-white text-sm font-bold">Run: mongosh</div>
+            }
             <Terminal terminalRef={terminalRef} containerId={containerId} />
           </main>
         </div>
