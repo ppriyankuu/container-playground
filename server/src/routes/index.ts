@@ -17,34 +17,65 @@ router.post('/new-container', async (req: Request, res: Response) => {
     try {
         const { image, name, cmd } = req.body;
 
-        let availableHostPort = 8000;
-        let availableInternalPort = 3000;
+        let availableHostPort: number;
+        let availableInternalPort: number;
 
-        while(PORT_TO_CONTAINER[availableHostPort] && availableHostPort < 9000 && availableInternalPort < 4000){
-            availableHostPort++;
-            availableInternalPort++;
+        if (image === 'postgres-terminal') {
+            availableHostPort =  5432;
+            availableInternalPort = 5432;
+        } else if (image === 'mongo-terminal') {
+            availableHostPort = 27017;
+            availableInternalPort = 27017;
+        } else {
+            availableInternalPort = 3000;
+            availableHostPort = 8000;
+        }
 
-            if(availableHostPort > 8999 || availableInternalPort > 3999){
-                throw new Error('No available ports');
+        if(availableHostPort === 8000) {
+            while (PORT_TO_CONTAINER[availableHostPort] && availableHostPort < 9000 && availableInternalPort < 4000) {
+                availableHostPort++;
+                availableInternalPort++;
+
+                if (availableHostPort > 8999 || availableInternalPort > 3999) {
+                    throw new Error('No available ports');
+                }
             }
         }
 
-        const container: Container = await docker.createContainer({
+        let env: Record<string, string> = {};
+
+        if (image === 'postgres-terminal') {
+            env = {
+                POSTGRES_USER: 'myuser',
+                POSTGRES_PASSWORD: 'mypassword',
+                POSTGRES_DB: 'mydb',
+            };
+        }
+        
+        if (image === 'mongo-terminal') {
+            env = {
+                MONGO_INITDB_ROOT_USERNAME: 'root',
+                MONGO_INITDB_ROOT_PASSWORD: 'example',
+            };
+        }
+
+        const container = await docker.createContainer({
             Image: image,
             name,
-            Cmd: cmdCommand(image, availableInternalPort),
+            Cmd: image === 'ubuntu-vscode-node' ? cmdCommand(image, availableInternalPort) : [],
             Tty: true,
             AttachStdin: true,
             AttachStdout: true,
             AttachStderr: true,
+            Env: Object.entries(env).map(([key, value]) => `${key}=${value}`),
             ExposedPorts: {
-                [`${availableInternalPort}/tcp`] : {}
+                [`${availableInternalPort}/tcp`]: {}
             },
             HostConfig: {
                 PortBindings: {
                     [`${availableInternalPort}/tcp`]: [
                         {
-                            HostPort: (availableHostPort).toString(),
+                            HostPort: availableHostPort.toString(),
                         },
                     ],
                 },
@@ -54,6 +85,7 @@ router.post('/new-container', async (req: Request, res: Response) => {
 
         await container.start();
 
+        // Update PORT_TO_CONTAINER and CONTAINER_TO_PORT before sending the response
         PORT_TO_CONTAINER[availableHostPort] = container.id;
         CONTAINER_TO_PORT[container.id] = {
             internal: availableInternalPort.toString(),
@@ -61,17 +93,16 @@ router.post('/new-container', async (req: Request, res: Response) => {
         };
 
         res.status(200).json({
-            message: 'Container created Successfully',
+            message: 'Container created and exec instance started successfully',
             containerId: container.id,
             internalPort: availableInternalPort,
             externalPort: availableHostPort,
         });
     } catch (err: any) {
-       res.status(500).json({error: err.message});
-       console.error('Error creating container : ', err.message); 
+        res.status(500).json({ error: err.message });
+        console.error('Error creating container:', err.message);
     }
 });
-
 
 router.delete('/container', async (req: Request, res: Response) => {
     try {

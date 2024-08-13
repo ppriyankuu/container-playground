@@ -14,12 +14,14 @@ export const CONTAINER_TO_PORT: Record<
 
 export function cmdCommand(image: string, availableInternalPort: number){
     switch (image) {
-        case 'ubuntu-vscode':
         case 'ubuntu-vscode-node':
             return ["code-server", "--bind-addr", `0.0.0.0:${availableInternalPort}`, "--auth", "none", "--disable-telemetry"];
         
-        case 'ubuntu':
-            return ["bash"];
+        case 'mongo-terminal':
+            return ["mongosh"];
+
+        case 'postgres-terminal':
+            return ['psql', '-U', 'myuser']
         
         case 'alpine':
             return ["sh"];
