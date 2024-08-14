@@ -1,8 +1,5 @@
 # Web Based Playgroud for various Docker Containers
-
-## Two sub Directories:
-1. server - Contains the server side code.
-2. web - Contains the client side code.
+![ScreenShot](./web/public/ss.png)
 
 ## How to run the project:
 1. Clone the repository.
