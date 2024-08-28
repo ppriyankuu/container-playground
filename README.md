@@ -1,7 +1,7 @@
 # Web Based Playgroud for various Docker Containers
 ![ScreenShot](./web/public/ss.png)
 
-## How to setup the project:
+## Project setup:
 1. Clone the repository.
 2. Go to the Images directory and run the following commands:
     ```sh
