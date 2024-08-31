@@ -10,7 +10,7 @@
     $ docker build -t ubuntu-vscode .
     ```
 3. Go to the Server directory and run the following commands:
-    ```sh
+    ```bash
     $ cd server/
     $ npm install
     $ tsc
