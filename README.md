@@ -17,7 +17,7 @@
     $ node dist/
     ```
 4. Go to the Web directory and run the following commands:
-    ```sh
+    ```bash
     $ cd web/
     $ npm install
     $ npm run dev
