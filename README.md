@@ -1,23 +1,23 @@
-# Web Based Playgroud for various Docker Containers
+# Web Based Playgroud for Docker Containers
 ![ScreenShot](./web/public/ss.png)
 
 ## How to setup the Project (installation):
 1. Clone the repository.
 2. Go to the Images directory and run the following commands:
-    ```bash
+    ```sh
     $ cd images/
     $ cd ubuntu-vscode-node/
     $ docker build -t ubuntu-vscode .
     ```
 3. Go to the Server directory and run the following commands:
-    ```bash
+    ```sh
     $ cd server/
     $ npm install
     $ tsc
     $ node dist/
     ```
 4. Go to the Web directory and run the following commands:
-    ```bash
+    ```sh
     $ cd web/
     $ npm install
     $ npm run dev
