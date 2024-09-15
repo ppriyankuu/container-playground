@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 export const containerState = atom({
-    key: "containerState",
+    key: '',
     default: {
         containerId: "",
         internalPort: 0,
