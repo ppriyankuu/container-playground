@@ -5,7 +5,6 @@ export interface Container {
 }
 
 export async function fetchNewContainer({imgName}: {imgName: string}): Promise<Container> {
-  // const image = "ubuntu-vscode";
 
   try {
     const response = await fetch("http://localhost:4000/api/v1/new-container", {
