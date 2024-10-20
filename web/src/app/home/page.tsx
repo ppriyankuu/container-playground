@@ -28,20 +28,6 @@ export default function Page() {
     router.push(`/playground?containerId=${containerId}`);
   };
 
-  //   return (
-  //     <div>
-  //       <div className="p-9 mx-auto">
-  //         <button
-  //           className="p-2 rounded-md bg-slate-500"
-  //           onClick={startNewContainer}
-  //         >
-  //           Start New Container
-  //         </button>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <>
       <div className="w-full h-full p-10">
