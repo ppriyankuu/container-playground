@@ -93,6 +93,9 @@ export const wsServer = (server: Server) => {
               case 'input':
                 stream.write(data);
                 break;
+
+              default:
+                console.error("Incorrect input");
             }
           });
         } catch (error: any) {
