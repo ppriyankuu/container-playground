@@ -13,7 +13,7 @@ export default function Page() {
 
   const startNewContainer = async ({imgName}: {imgName: string}) => {
     console.log("Starting New Container");
-    // console.log("imgName:", imgName);
+    console.log("imgName:", imgName);
 
     if(imgName === 'mongo-terminal') setImage('mongo')
 
