@@ -16,13 +16,13 @@
     $ tsc
     $ node dist/
     ```
-4. Go to the Web directory and run the following commands:
+4. Go to the Web directory and run the following commands
     ```bash
     $ cd web/
     $ npm install
     $ npm run dev
     ``` 
-5. Open the browser and go to the following URL:
+5. Open the browser and go to the following URL
     ```bash
     http://localhost:3000/
     ```
