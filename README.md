@@ -3,13 +3,13 @@
 
 ## How to setup the Project (installation):
 1. Clone the repository.
-2. Go to the Images directory and run the following commands:
+2. Go to the Images directory and run the following commands
     ```bash
     $ cd images/
     $ cd ubuntu-vscode-node/
     $ docker build -t ubuntu-vscode .
     ```
-3. Go to the Server directory and run the following commands:
+3. Go to the Server directory and run the following commands
     ```bash
     $ cd server/
     $ npm install
