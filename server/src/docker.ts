@@ -14,9 +14,7 @@ export const CONTAINER_TO_PORT: Record<
 
 export function cmdCommand(image: string, availableInternalPort: number){
     switch (image) {
-        case 'ubuntu-vscode-node':
-            return ["code-server", "--bind-addr", `0.0.0.0:${availableInternalPort}`, "--auth", "none", "--disable-telemetry"];
-        
+       
         case 'mongo-terminal':
             return ["mongosh"];
 
