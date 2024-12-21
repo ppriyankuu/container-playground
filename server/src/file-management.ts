@@ -35,7 +35,7 @@ const parseFileTree = (output: string) => {
         let node = currentDir;
 
         for(let i = 0; i < pathParts.length; ++i){
-           
+            const part =  pathParts[i].trim();
 
             if(!part) continue;
 
